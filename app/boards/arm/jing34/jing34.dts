@@ -69,7 +69,7 @@ kscan0: kscan {
     leds {
         compatible = "gpio-leds";
         blue_led: led_0 {
-            gpios = <&gpio0 25 GPIO_ACTIVE_HIGH>;
+            gpios = <&gpio1 9 GPIO_ACTIVE_HIGH>;
         };
     };
 
@@ -91,21 +91,23 @@ kscan0: kscan {
     spi0_default: spi0_default {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 0, 0)>,
-                <NRF_PSEL(SPIM_MOSI, 0, 9)>,
-                <NRF_PSEL(SPIM_MISO, 0, 4)>;
+                <NRF_PSEL(SPIM_MOSI, 0, 9)>;
         };
     };
     spi0_sleep: spi0_sleep {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 0, 0)>,
-                <NRF_PSEL(SPIM_MOSI, 0, 9)>,
-                <NRF_PSEL(SPIM_MISO, 0, 4)>;
+                <NRF_PSEL(SPIM_MOSI, 0, 9)>;
             low-power-enable;
         };
     };
 };
 
 jing34_spi: &spi0 {
+    compatible = "nordic,nrf-spim";
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
     cs-gpios = <&gpio0 1 GPIO_ACTIVE_LOW>;
     shifter: 595@0 {
         compatible = "zmk,gpio-595";
@@ -116,7 +118,8 @@ jing34_spi: &spi0 {
         label = "4HC595";
         #gpio-cells = <2>;
         ngpios = <16>;
-}
+    }
+};
 
 
 &adc {
@@ -129,7 +132,6 @@ jing34_spi: &spi0 {
 
 &gpio0 {
     status = "okay";
-    };
 };
 
 &gpio1 {

@@ -5,7 +5,7 @@
 
 if BOARD_JING34
 
-config BOARD
+config ZMK_KEYBOARD_NAME
     default "jing34"
 
 if USB_DEVICE_STACK
