@@ -8,3 +8,6 @@ config BOARD_NRFMICRO_CHARGER
     bool "Enable battery charger"
     default y
     depends on (BOARD_JING34)
+
+# Turn on logging, and set ZMK logging to debug output
+CONFIG_ZMK_USB_LOGGING=y
